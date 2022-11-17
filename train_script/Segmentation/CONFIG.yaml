@@ -1,17 +1,17 @@
 source:
-  #  image_root: "~/resource/data/images"
-  #  label_root: "~/resource/data/labels"
-  image_root: "/YOUR_PATH/wsirois/roi-level-annotations/tissue-bcss/images"
-  label_root: "/YOUR_PATH/wsirois/roi-level-annotations/tissue-bcss/masks"
-  lib: "~/cache/source.lib"
+  #  image_root: "/hpc/dla_patho/data/TIGER_results/resource/data/images"
+  #  label_root: "/hpc/dla_patho/data/TIGER_results/resource/data/labels"
+  image_root: "/hpc/dla_patho/data/TIGER/wsirois/roi-level-annotations/tissue-bcss/images"
+  label_root: "/hpc/dla_patho/data/TIGER/wsirois/roi-level-annotations/tissue-bcss/masks"
+  lib: "/hpc/dla_patho/data/TIGER_results/cache/source.lib"
 
 cropper:
   # type: 'random'
   type: 'active'
-  groups_lib: "~/cache/groups.yaml"
-  cropper_lib: "~/cache/cropper.yaml"
-  cropper_root: "~/cache/"
-  predict_lib: "~/cache/predict.yaml"
+  groups_lib: "/hpc/dla_patho/data/TIGER_results/cache/groups.yaml"
+  cropper_lib: "/hpc/dla_patho/data/TIGER_results/cache/cropper.yaml"
+  cropper_root: "/hpc/dla_patho/data/TIGER_results/cache/"
+  predict_lib: "/hpc/dla_patho/data/TIGER_results/cache/predict.yaml"
   # target_mpp 是构建数据源时约定的图像分辨率
   target_mpp: 0.5
   patch_size: 512
@@ -101,7 +101,7 @@ model:
     van: 1e-4
 
 build:
-  visual_root: "~/cache/visual"
+  visual_root: "/hpc/dla_patho/data/TIGER_results/cache/visual"
 
 # train settings
 train:
@@ -115,8 +115,8 @@ train:
 
 # visual settings
 visual:
-  dataset_root: "~/datasource/visual"
-  predict_root: "~/datasource/visual"
+  dataset_root: "/hpc/dla_patho/data/TIGER_results/datasource/visual"
+  predict_root: "/hpc/dla_patho/data/TIGER_results/datasource/visual"
   color:
     box: [0, 255, 255]      # 青色 -> box框
     fill: [
@@ -143,7 +143,7 @@ visual:
 
 # output settings
 output:
-  root: "~/output/"
+  root: "/hpc/dla_patho/data/TIGER_results/output/"
   target: "latest"
   full: "full"
   model: "model.pth"
