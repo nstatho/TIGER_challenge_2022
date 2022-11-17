@@ -40,40 +40,40 @@ RUN : \
 # # Install algorithm
 #RUN mkdir -p /home/user/pathology-tiger-algorithm
 #COPY setup.py /home/user/pathology-tiger-algorithm
-RUN : \
-    && pip install -i wheel==0.37.0 \
+RUN python -m pip install -U pip 
+RUN pip install wheel~=0.37.0 
 #    && pip install -i /home/user/pathology-tiger-algorithm \
-    && pip install -i numpy==1.20.2 \
-    && pip install -i tqdm==4.62.3 \
+RUN pip install numpy~=1.20.2 
+RUN pip install tqdm~=4.62.3 
 #    && rm -r /home/user/pathology-tiger-algorithm \
-    && :
+    
 
 # Install python other requirements
-RUN : \
-    && pip install -i pillow \
-    && pip install -i torch=1.10.2+cu113 \
-    && pip install -i torchvision=0.11.3+cu113 \
-    && pip install -i opencv-python \    
-    && pip install -i imageio \        
-    && pip install -i numpy>=1.21.4 \
-    && pip install -i opencv-python~=4.5.4.60 \
-    && pip install -i PyYAML~=5.4.1 \
-    && pip install -i torch>=1.10.0 \
-    && pip install -i timm~=0.4.12 \
-    && pip install -i Shapely~=1.7.1 \
-    && pip install -i matplotlib~=3.4.3 \
-    && pip install -i Pillow~=8.2.0 \
-    && pip install -i descartes~=1.1.0 \
-    && pip install -i scikit-image~=0.18.3 \
-    && pip install -i imageio~=2.16.0 \
-    && pip install -i albumentations~=1.1.0 \
-    && pip install -i imagesize~=1.3.0 \
-    && pip install -i tqdm~=4.32.2 \
-    && pip install -i scipy~=1.7.3 \
-    && pip install -i scikit-learn~=0.24.2 \
-    && pip install -i lxml~=4.6.4 \
-    && pip install -i histomicstk~=1.1.0 \
-    && :
+
+RUN pip install pillow
+RUN pip install torch=1.10.2+cu113
+RUN pip install torchvision=0.11.3+cu113
+RUN pip install opencv-python
+RUN pip install imageio  
+RUN pip install numpy>=1.21.4
+RUN pip install opencv-python~=4.5.4.60
+RUN pip install PyYAML~=5.4.1
+RUN pip install torch>=1.10.0
+RUN pip install timm~=0.4.12
+RUN pip install Shapely~=1.7.1
+RUN pip install matplotlib~=3.4.3
+RUN pip install Pillow~=8.2.0
+RUN pip install descartes~=1.1.0
+RUN pip install scikit-image~=0.18.3
+RUN pip install imageio~=2.16.0
+RUN pip install albumentations~=1.1.0
+RUN pip install imagesize~=1.3.0
+RUN pip install tqdm~=4.32.2
+RUN pip install scipy~=1.7.3
+RUN pip install scikit-learn~=0.24.2
+RUN pip install lxml~=4.6.4
+RUN pip install histomicstk~=1.1.0
+    
 RUN rm -r $BASE_INSTALL
 
 
