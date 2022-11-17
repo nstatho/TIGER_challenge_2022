@@ -35,7 +35,7 @@ RUN : \
     && ldconfig -v \
     && apt-get clean \
     && echo "/opt/ASAP/bin" > /venv/lib/python3.8/site-packages/asap.pth \
-#    && :
+    && :
 
 # # Install algorithm
 #RUN mkdir -p /home/user/pathology-tiger-algorithm
@@ -74,7 +74,6 @@ RUN : \
     && pip install -i lxml~=4.6.4 \
     && pip install -i histomicstk~=1.1.0 \
     && :
-
 RUN rm -r $BASE_INSTALL
 
 
