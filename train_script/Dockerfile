@@ -28,8 +28,8 @@ RUN : \
     && dpkg --install /$BASE_INSTALL/ASAP-2.1-Ubuntu2004.deb || true \
     && apt-get -f install --fix-missing --fix-broken --assume-yes \
     && dpkg -i /$BASE_INSTALL/ASAP-2.1-Ubuntu2004.deb \
-    && apt-get install libpixman-1-0=0.40.0-1build4 \
-    && apt-get install libpixman-1-dev=0.40.0-1build4 \    
+    && apt-get install libpixman-1-0 \
+    && apt-get install libpixman-1-dev \    
     # && dpkg -i /$BASE_INSTALL/libpixman-1-0_0.40.0-1build2_amd64.deb \
     # && dpkg -i /$BASE_INSTALL/libpixman-1-dev_0.40.0-1build2_amd64.deb \
     && ldconfig -v \
