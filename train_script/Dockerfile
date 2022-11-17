@@ -24,12 +24,14 @@ ENV PATH=/venv/bin:$PATH
 # Install ASAP
 RUN : \
     && apt-get update \
-    && seq 3 | xargs -i apt install -y libboost-program-options1.71.0 libboost-regex1.71.0 libdcmtk14 \
-    && dpkg --install /$BASE_INSTALL/ASAP-2.0-py38-Ubuntu2004.deb || true \
+    && seq 3 | xargs -i apt install -y libboost-program-options1.71.0 libboost-regex1.71.0 libdcmtk14 \    
+    && dpkg --install /$BASE_INSTALL/ASAP-2.1-Ubuntu2004.deb || true \
     && apt-get -f install --fix-missing --fix-broken --assume-yes \
-    && dpkg -i /$BASE_INSTALL/ASAP-2.0-py38-Ubuntu2004.deb \
-    && dpkg -i /$BASE_INSTALL/libpixman-1-0_0.40.0-1build2_amd64.deb \
-    && dpkg -i /$BASE_INSTALL/libpixman-1-dev_0.40.0-1build2_amd64.deb \
+    && dpkg -i /$BASE_INSTALL/ASAP-2.1-Ubuntu2004.deb \
+    && apt-get install libpixman-1-0=0.40.0-1build4 \
+    && apt-get install libpixman-1-dev=0.40.0-1build4 \    
+    # && dpkg -i /$BASE_INSTALL/libpixman-1-0_0.40.0-1build2_amd64.deb \
+    # && dpkg -i /$BASE_INSTALL/libpixman-1-dev_0.40.0-1build2_amd64.deb \
     && ldconfig -v \
     && apt-get clean \
     && echo "/opt/ASAP/bin" > /venv/lib/python3.8/site-packages/asap.pth \
@@ -49,8 +51,8 @@ RUN : \
 # Install python other requirements
 RUN : \
     && pip install -i pillow \
-    && pip install -i /$BASE_INSTALL/torch-1.10.2+cu113-cp38-cp38-linux_x86_64.whl \
-    && pip install -i /$BASE_INSTALL/torchvision-0.11.3+cu113-cp38-cp38-linux_x86_64.whl \
+    && pip install -i torch=1.10.2+cu113 \
+    && pip install -i torchvision=0.11.3+cu113 \
     && pip install -i opencv-python \    
     && pip install -i imageio \        
     && pip install numpy>=1.21.4 \
