@@ -56,7 +56,7 @@ RUN pip install torchvision=0.11.3+cu113
 RUN pip install opencv-python
 RUN pip install imageio  
 RUN pip install numpy>=1.21.4
-RUN pip install opencv-python~=4.5.4.60
+RUN pip install opencv-python==4.5.5.62
 RUN pip install PyYAML~=5.4.1
 RUN pip install torch>=1.10.0
 RUN pip install timm~=0.4.12
@@ -79,31 +79,23 @@ RUN rm -r $BASE_INSTALL
 
 RUN : \
       && seq 3 | xargs -i apt-get install -y sudo
-    
-# Make user
-RUN  mkdir /home/user \
-     && groupadd -r user && useradd -r -g user user \
-     && chown user /home/user/ \
-     && :
-RUN mkdir /output/
-RUN chown user /output/
-ENV passwd=tigerroot
 
-RUN usermod -aG sudo user \
-    && echo "user   ALL=(ALL:ALL) NOPASSWD:ALL" >>/etc/sudoers \
-    && chmod u+w /etc/sudoers
+USER algorithm
+WORKDIR /opt/algorithm
+ENV PATH="/home/algorithm/.local/bin:${PATH}"    
 
-RUN mkdir /input \
-    && chown user /input
+# FOLDERS and PERMISSIONS
+RUN groupadd -r algorithm && useradd -m --no-log-init -r -g algorithm algorithm
 
+RUN mkdir -p /opt/train_script
+RUN mkdir -p /opt/train_script/Detection
+RUN mkdir -p /opt/train_script/Segmentation
 
-ENV ALGORITHMSCRIPT=train_script
-COPY $ALGORITHMSCRIPT/ /home/user/train_script/
-RUN chmod 777 -R /home/user/train_script
-
-USER user
-WORKDIR /home/user/train_script
-
+COPY Detection/ /opt/train_script/Detection/
+COPY Segmentation/ /opt/train_script/Segmentation/
+RUN chown algorithm:algorithm /opt/train_script/ \
+    && chown algorithm:algorithm /opt/train_script/Segmentation \
+    && chown algorithm:algorithm /opt/train_script/Detection
 
 ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=compute
