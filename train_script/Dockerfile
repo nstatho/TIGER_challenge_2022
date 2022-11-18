@@ -51,9 +51,8 @@ RUN pip install tqdm~=4.62.3
 # Install python other requirements
 
 RUN pip install pillow
-RUN pip install torch=1.10.2+cu113
-RUN pip install torchvision=0.11.3+cu113
-RUN pip install opencv-python
+RUN pip install torch~=1.10.2
+RUN pip install torchvision~=0.11.3
 RUN pip install imageio  
 RUN pip install numpy>=1.21.4
 RUN pip install opencv-python==4.5.5.62
@@ -72,7 +71,7 @@ RUN pip install tqdm~=4.32.2
 RUN pip install scipy~=1.7.3
 RUN pip install scikit-learn~=0.24.2
 RUN pip install lxml~=4.6.4
-RUN pip install histomicstk~=1.1.0
+RUN pip install histomicstk --find-links https://girder.github.io/large_image_wheels
     
 RUN rm -r $BASE_INSTALL
 
@@ -80,22 +79,25 @@ RUN rm -r $BASE_INSTALL
 RUN : \
       && seq 3 | xargs -i apt-get install -y sudo
 
-USER algorithm
-WORKDIR /opt/algorithm
-ENV PATH="/home/algorithm/.local/bin:${PATH}"    
 
 # FOLDERS and PERMISSIONS
 RUN groupadd -r algorithm && useradd -m --no-log-init -r -g algorithm algorithm
 
-RUN mkdir -p /opt/train_script
-RUN mkdir -p /opt/train_script/Detection
+RUN mkdir -p /opt/train_script \
+    && chown algorithm:algorithm /opt/train_script/
+
+RUN mkdir -p /opt/train_script/Detection 
+#    && chown algorithm:algorithm /opt/train_script/Segmentation
+
 RUN mkdir -p /opt/train_script/Segmentation
+#    && chown algorithm:algorithm /opt/train_script/Detection
+
+USER algorithm
+WORKDIR /opt/train_script
+ENV PATH="/home/algorithm/.local/bin:${PATH}"    
 
 COPY Detection/ /opt/train_script/Detection/
 COPY Segmentation/ /opt/train_script/Segmentation/
-RUN chown algorithm:algorithm /opt/train_script/ \
-    && chown algorithm:algorithm /opt/train_script/Segmentation \
-    && chown algorithm:algorithm /opt/train_script/Detection
 
 ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=compute
@@ -113,3 +115,5 @@ LABEL processor.memory="15G"
 LABEL processor.gpu_count="1"
 LABEL processor.gpu.compute_capability="null"
 LABEL processor.gpu.memory="11G"
+
+RUN ls --recursive /opt/train_script
