@@ -99,6 +99,9 @@ RUN pip install tqdm~=4.32.2
 RUN pip install scipy~=1.7.3
 RUN pip install scikit-learn~=0.24.2
 RUN pip install lxml~=4.6.4
+RUN pip install segmentation-models-pytorch
+RUN pip install pytorch_warmup
+RUN pip install tensorboard
 RUN pip install histomicstk --find-links https://girder.github.io/large_image_wheels
     
 RUN rm -r $BASE_INSTALL
