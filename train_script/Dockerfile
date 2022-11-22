@@ -55,13 +55,13 @@ ENV PATH=/venv/bin:$PATH
 RUN : \
     && apt-get update \
     && apt-get -y install curl git \
-    && curl --remote-name --location "https://github.com/computationalpathologygroup/ASAP/releases/download/ASAP-2.1-(Nightly)/ASAP-2.1-Ubuntu2004.deb" \
-    && dpkg --install ASAP-2.1-Ubuntu2004.deb || true \
+    && curl --remote-name --location "https://github.com/computationalpathologygroup/ASAP/releases/download/ASAP-2.1/ASAP-2.1-py38-Ubuntu2004.deb" \
+    && dpkg --install ASAP-2.1-py38-Ubuntu2004.deb || true \
     && apt-get -f install --fix-missing --fix-broken --assume-yes \
     && ldconfig -v \
     && apt-get clean \
     && echo "/opt/ASAP/bin" > /venv/lib/python3.8/site-packages/asap.pth \
-    && rm ASAP-2.1-Ubuntu2004.deb \
+    && rm ASAP-2.1-py38-Ubuntu2004.deb \
     && :
 
 # # Install algorithm
@@ -82,7 +82,7 @@ RUN pip install pillow
 RUN pip install torch~=1.10.2
 RUN pip install torchvision~=0.11.3
 RUN pip install imageio  
-RUN pip install numpy>=1.21.4
+RUN pip install numpy>=1.22.1
 RUN pip install opencv-python==4.5.5.62
 RUN pip install PyYAML~=5.4.1
 RUN pip install torch>=1.10.0
